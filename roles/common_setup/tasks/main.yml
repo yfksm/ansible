@@ -15,6 +15,11 @@
     - { name: git, state: latest }
     - { name: wget, state: latest }
     - { name: unzip, state: latest }
+    - { name: httpd, state: latest }
+    - { name: httpd-devel, state: latest }
+    - { name: make, state: latest }
+    - { name: gcc-c++, state: latest }
+     
 
 - name: check locale
   command: localectl status
