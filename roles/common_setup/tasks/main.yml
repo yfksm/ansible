@@ -11,8 +11,21 @@
     - { name: kbd, state: latest }
     - { name: gcc, state: latest }
     - { name: ncurses-devel, state: latest }
+    - { name: lua-devel, state: latest }  
     - { name: git, state: latest }
     - { name: wget, state: latest }
     - { name: unzip, state: latest }
-  
-    
+      
+- name: create locale ja_JP.UTF-8
+  command: localedef -f UTF-8 -i ja_JP ja_JP
+
+- name: change locale
+  command: localectl set-locale LANG=ja_JP.UTF-8
+
+- name: change keymap
+  command: localectl set-keymap jp106
+
+- name: change timezone
+  timezone:
+    name: Asia/Tokyo
+
