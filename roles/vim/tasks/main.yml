@@ -5,12 +5,9 @@
     dest: /usr/src/vim
 
 - name: install vim
-  command: "{{ item }}"
-  args:
+  make:
     chdir: /usr/src/vim
-  with_items:
-    - make
-    - make install
+    target: install
 
 - name: download vim-plug
   get_url:
