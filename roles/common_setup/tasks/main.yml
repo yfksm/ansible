@@ -15,15 +15,23 @@
     - { name: git, state: latest }
     - { name: wget, state: latest }
     - { name: unzip, state: latest }
-      
+
+- name: check locale
+  command: localectl status
+  register: localectl_status
+  changed_when: False  
+
 - name: create locale ja_JP.UTF-8
   command: localedef -f UTF-8 -i ja_JP ja_JP
+  when: "'LANG=ja_JP.UTF-8' not in localectl_status.stdout"
 
 - name: change locale
   command: localectl set-locale LANG=ja_JP.UTF-8
+  when: "'LANG=ja_JP.UTF-8' not in localectl_status.stdout"
 
 - name: change keymap
   command: localectl set-keymap jp106
+  when: "'LANG=ja_JP.UTF-8' not in localectl_status.stdout"
 
 - name: change timezone
   timezone:

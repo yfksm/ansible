@@ -4,10 +4,17 @@
     repo: https://github.com/vim/vim.git
     dest: /usr/src/vim
 
+- name: check vim install status
+  command: /usr/local/bin/vim --version
+  register: vim_status
+  changed_when: False  
+  ignore_errors: True
+    
 - name: install vim
   make:
     chdir: /usr/src/vim
     target: install
+  when: vim_status.failed  
 
 - name: download vim-plug
   get_url:
