@@ -7,18 +7,23 @@
 - name: check vim install status
   command: /usr/local/bin/vim --version
   register: vim_status
-  changed_when: False  
+  changed_when: False
   ignore_errors: True
-    
+
 - name: install vim
   make:
     chdir: /usr/src/vim
     target: install
-  when: vim_status.failed  
+  when: vim_status.failed
+
+- name: create directory for vim-plug
+  file:
+    path: ~/.vim/autoload
+    state: directory
 
 - name: download vim-plug
   get_url:
-    url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
+    url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     dest: ~/.vim/autoload/plug.vim
 
 - name: generate .vimrc with plugins
